@@ -78,9 +78,6 @@ docker run -d -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env python3
 
 Please read the following paper for more technical details
 
-Yangfeng Ji, Jacob Eisenstein. *[Representation Learning for Text-level 
-
- Parsing](http://jiyfeng.github.io/papers/ji-acl-2014.pdf)*. ACL 2014
-
+- Yangfeng Ji, Jacob Eisenstein. *[Representation Learning for Text-level Parsing](http://jiyfeng.github.io/papers/ji-acl-2014.pdf)*. ACL 2014
 - Joty, S., Carenini, G., & Ng, R. T. (n.d.). CODRA: A Novel Discriminative Framework for Rhetorical Analysis.
 - Shahmohammadi, S., & Stede, M. (2024). Discourse Parsing for German with new RST Corpora. Workshop Proceedings of the 20th Edition of the KONVENS Conference. 
