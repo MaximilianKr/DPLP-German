@@ -1,0 +1,41 @@
+(Root
+  (span 1 6)
+  (Nucleus
+    (span 1 2)
+    (rel2par span)
+    (Nucleus
+      (leaf 1)
+      (rel2par span)
+      (text
+        _!Ich hörte die Wagen an dem Gartengitter vorüberfahren ,_!))
+    (Satellite
+      (leaf 2)
+      (rel2par eelaboration)
+      (text
+        _!manchmal sah ich sie auch durch die schwach bewegten Lücken im Laub ._!)))
+  (Satellite
+    (span 3 6)
+    (rel2par elaboration)
+    (Nucleus
+      (leaf 3)
+      (rel2par list)
+      (text
+        _!Wie krachte in dem heißen Sommer das Holz in ihren Speichen und Deichseln !_!))
+    (Nucleus
+      (span 4 6)
+      (rel2par list)
+      (Nucleus
+        (leaf 4)
+        (rel2par conjunction)
+        (text _!Arbeiter kamen von den Feldern_!))
+      (Nucleus
+        (span 5 6)
+        (rel2par conjunction)
+        (Satellite
+          (leaf 5)
+          (rel2par attribution)
+          (text _!und lachten ,_!))
+        (Nucleus
+          (leaf 6)
+          (rel2par span)
+          (text _!daß es eine Schande war ._!))))))

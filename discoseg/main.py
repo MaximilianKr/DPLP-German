@@ -26,15 +26,15 @@ writepath = "data/neg/"
 def main():
     ## Build vocab
     thresh = 5
-    # buildvocab.main(trainpath, thresh, fvocab)
+    buildvocab.main(trainpath, thresh, fvocab)
     ## Build training data
-    # buildsample.main(trainpath, ftrain, fvocab)
+    buildsample.main(trainpath, ftrain, fvocab)
     ## Build dev data
-    # buildsample.main(devpath, fdev, fvocab)
+    buildsample.main(devpath, fdev, fvocab)
     ## Training
-    # buildmodel.main(ftrain, fdev, fmodel)
+    buildmodel.main(ftrain, fdev, fmodel)
     ## Segmentation
-    buildedu.main(fmodel, fvocab, testpath, writepath)
+    #buildedu.main(fmodel, fvocab, testpath, writepath)
 
 
 if __name__ == '__main__':

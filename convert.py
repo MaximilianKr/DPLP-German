@@ -17,7 +17,7 @@ def extract(fxml):
 def main(rpath):
     files = [join(rpath,fname) for fname in listdir(rpath) if fname.endswith(".xml")]
     for fxml in files:
-        print('Processing file: {}'.format(fxml))
+        print 'Processing file: {}'.format(fxml)
         extract(fxml)
 
 
@@ -26,4 +26,4 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         main(rpath=sys.argv[1])
     else:
-        print("python convert.py data_path")
+        print "python convert.py data_path"

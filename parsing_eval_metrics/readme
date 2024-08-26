@@ -1,0 +1,28 @@
+### Help to run the evaluation script ###
+Author: Shafiq Joty [sjoty@qf.org.qa]
+
+- Extract Set.tar.gz. 
+
+- Run the perl script:
+
+	Perl ParsingAccuracyMeasuresDocLevelForSystems.pl path_to_sys_dir path_to_gold_dir res.out
+
+
+
+The main perl script takes three arguments: 
+
+1.  Path to the directory with the system annotations: 
+    The filenames should end with *. doc_dis, but you can change the code according to your need. Here is where you need to change:
+    my @canFiles = grep /\w+\.doc_dis/, readdir(DIR);
+
+2. Path to the Directory with the gold annotations:
+   It assumes that the file names are the same as the system outputs (e.g., *.doc_dis).
+
+3. The name of the output file:
+   In the output file, it shows the results for the individual documents as well as the summary. 
+
+   A sample output file is attached.
+
+The parsed documents should have the same format as RST-DT.
+
+ 

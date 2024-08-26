@@ -3,21 +3,23 @@
 ## Date: 05-02-2015
 ## Time-stamp: <yangfeng 09/25/2015 15:18:23>
 
-from datastruct import *
-from util import isnumber
+from model.datastruct import *
+from model.util import isnumber
 
 """ Read *.merge file
 """
 
 class DocReader(object):
+    
     def __init__(self):
         """ Initialization
         """
-        pass
+        self.name= ''
 
     def read(self, fconll, withboundary=True):
         """
         """
+        self.name = fconll
         fin = open(fconll, 'r')
         gidx, tokendict = 0, {}
         for line in fin:
@@ -75,7 +77,7 @@ class DocReader(object):
         """
         items = line.strip().split('\t')
         tok = Token()
-        tok.sidx, tok.tidx = int(items[0]), int(items[1])
+        tok.sidx, tok.tidx = items[0], items[1]
         tok.word, tok.lemma = items[2], items[3]
         tok.pos, tok.deplabel = items[4], items[5]
         if isnumber(items[6]):
@@ -88,9 +90,15 @@ class DocReader(object):
             tok.partialparse = items[8]
         except IndexError:
             pass
-        if len(items) == 10:
-            tok.eduidx = int(items[9])
-        elif (len(items) == 9) or (len(items) == 8):
+        if len(items) >= 13:
+            try:
+                tok.eduidx = int(items[-1])
+            except:
+                print('eee')
+            num_of_extra_features = len(items) - 10
+            for i in range(num_of_extra_features):
+                setattr(tok, 'extra_' + str(i + 1), items[ 10 + i])
+        elif (len(items) == 12) or (len(items) == 11):
             pass
         else:
             raise ValueError("Unrecognized format")

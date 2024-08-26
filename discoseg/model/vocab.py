@@ -10,8 +10,8 @@
 """
 
 from collections import defaultdict
-from feature import FeatureGenerator
-from cPickle import dump
+from model.feature import FeatureGenerator
+from pickle import dump
 import gzip
 
 class VocabGenerator(object):
@@ -32,7 +32,7 @@ class VocabGenerator(object):
         :param doc: 
         """
         featdict = self.fg.extract(doc)
-        for (idx, featlist) in featdict.iteritems():
+        for (idx, featlist) in featdict.items():
             for feat in featlist:
                 self.features[feat] += 1.0
 
@@ -47,7 +47,7 @@ class VocabGenerator(object):
         """ Filter out low-frequency features with thresh
         """
         index = 0
-        for (feat, freq) in self.features.iteritems():
+        for (feat, freq) in self.features.items():
             if freq >= self.thresh:
                 self.vocab[feat] = index
                 index += 1
@@ -68,4 +68,4 @@ class VocabGenerator(object):
         if len(self.vocab) == 0:
             raise ValueError("Empty vocab")
         dump(self.vocab, fout)
-        print "Save vocab into file: {}".format(fvocab)
+        # print "Save vocab into file: {}".format(fvocab)

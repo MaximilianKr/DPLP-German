@@ -1,0 +1,5 @@
+====================== parser training =================
+Training finished. Model saved in data/test/model/model.pickle.gz
+F1 score on span level is 0.9000
+F1 score on nuclearity level is 0.8000
+F1 score on relation level is 0.8000

@@ -1,0 +1,48 @@
+{
+    "evidence": "causal",
+    "result": "causal", 
+    "reason": "causal", 
+    "reason-N": "causal",
+    "purpose": "causal", 
+    "cause": "causal",
+
+    "antithesis": "contrastive", 
+    "concession": "contrastive",
+    "contrast": "contrastive", 
+
+    "background": "background",
+    "preparation": "background", 
+    "circumstance": "background", 
+
+    "joint": "additive", 
+    "list": "additive", 
+    "sequence": "additive", 
+    "conjunction": "additive",
+
+    "elaboration": "elab",
+    "e-elaboration": "elab",
+    "e": "elab",
+
+
+    "evaluation-s": "eval", 
+    "evaluation-n": "eval", 
+    
+    "interpretation": "comment", 
+
+    "means": "menablement", 
+    "enablement": "menablement", 
+
+
+    "summary": "summary", 
+    "restatement": "summary",
+
+    "condition": "condition",
+    "conditionmult": "condition",
+    "span": "span",
+    "disjunction": "additive",
+    "justify": "causal",
+    "otherwise": "contrastive",
+    "unless": "contrastive",
+    "solutionhood": "solutionhood",
+    "motivation": "causal"
+}

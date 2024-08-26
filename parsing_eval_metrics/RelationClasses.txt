@@ -1,0 +1,20 @@
+Attribution:  attribution
+Background:    background
+Cause:         cause, causemult
+Comparison:    comparison, comparisonmult
+Condition:     condition, conditionmult
+Contrast:      contrast, contrastmult
+Elaboration:   elaboration
+Enablement:    enablement
+Evaluation:    evaluation, evaluationmult
+Explanation:   explanation, explanationmult
+Joint:         jointmult
+Manner-Means:  manner-means
+Topic-Comment: topicomment, topicommentmult
+Summary:       summary
+Temporal:      temporalmult, temporal
+Topic-Change:  topichange, topidriftmult, topichangemult
+Same-Unit:     same
+TextualOrganization: textualorganization 
+span:          span
+Dummy:         dummy, virtual, virtual-root  

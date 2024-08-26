@@ -8,7 +8,7 @@ from os.path import join, basename
 from model.classifier import Classifier
 from model.docreader import DocReader
 from model.sample import SampleGenerator
-from cPickle import load
+from pickle import load
 import gzip
 
 
@@ -16,10 +16,10 @@ def main(fmodel, fvocab, rpath, wpath):
     clf = Classifier()
     dr = DocReader()
     clf.loadmodel(fmodel)
-    flist = [join(rpath,fname) for fname in listdir(rpath) if fname.endswith('conll')]
+    flist = [join(rpath,fname) for fname in listdir(rpath) if fname.endswith('.conll')]
     vocab = load(gzip.open(fvocab))
     for (fidx, fname) in enumerate(flist):
-        print "Processing file: {}".format(fname)
+        # print "Processing file: {}".format(fname)
         doc = dr.read(fname, withboundary=False)
         sg = SampleGenerator(vocab)
         sg.build(doc)
@@ -28,12 +28,11 @@ def main(fmodel, fvocab, rpath, wpath):
         doc = postprocess(doc, predlabels)
         writedoc(doc, fname, wpath)
 
-
 def postprocess(doc, predlabels):
     """ Assign predlabels into doc
     """
     tokendict = doc.tokendict
-    for gidx in tokendict.iterkeys():
+    for gidx in tokendict.keys():
         if predlabels[gidx] == 1:
             tokendict[gidx].boundary = True
         else:

@@ -19,16 +19,16 @@ def main(rpath, thresh, fvocab):
     dr = DocReader()
     flist = [join(rpath,fname) for fname in listdir(rpath) if fname.endswith('merge')]
     for fname in flist:
-        print "Reading file: {}".format(fname)
+        # print "Reading file: {}".format(fname)
         doc = dr.read(fname)
         vg.build(doc)
     vg.filter()
     vocab = vg.getvocab()
-    print "Vocab size = {}".format(len(vocab))
+    # print "Vocab size = {}".format(len(vocab))
     if not fvocab.endswith('.pickle.gz'):
         fvocab += '.pickle.gz'
     vg.savevocab(fvocab)
-    with open('vocab.txt', 'w') as fout:
-        for (feat, idx) in vocab.iteritems():
+    with open(join(rpath, 'vocab.txt'), 'w') as fout:
+        for (feat, idx) in vocab.items():
             fout.write(str(feat) + '\t' + str(idx) + '\n')
 

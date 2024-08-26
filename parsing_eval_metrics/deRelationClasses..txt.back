@@ -1,0 +1,19 @@
+Attribution:  attribution
+Background:    background, preparation, circumstance
+Cause:         cause, reason, purpose
+Comparison:    comparison, comparisonmult
+Condition:     condition, conditionmult
+Contrast:      contrast, concession, antithesis
+Elaboration:   elaboration, e-elaboration, e
+Enablement:    enablement
+Evaluation:    evaluation, evaluation-s, evaluation-n
+Explanation:   explanation, explanation, evidence, interpretation
+Joint:         joint, list, conjunction, sequence
+Manner-Means:  manner-means, means
+Topic-Comment: topicomment, topicommentmult
+Summary:       summary, restatement
+Temporal:      temporalmult, temporal
+Topic-Change:  topichange, topidriftmult, topichangemult
+TextualOrganization: textualorganization 
+span:          span
+Dummy:         dummy, virtual, virtual-root

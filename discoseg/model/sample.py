@@ -7,9 +7,9 @@
 """
 
 from collections import defaultdict
-from feature import FeatureGenerator
+from model.feature import FeatureGenerator
 from scipy.sparse import lil_matrix, coo_matrix
-from util import *
+from model.util import *
 
 class SampleGenerator(object):
     def __init__(self, vocab):
@@ -26,7 +26,7 @@ class SampleGenerator(object):
         N = len(self.featdict)
         index = 0
         featdct = self.fg.extract(doc)
-        for (gidx, featlist) in featdct.iteritems():
+        for (gidx, featlist) in featdct.items():
             self.featdict[N+index] = featlist
             if doc.tokendict[gidx].boundary is not None:
                 # No boundary indicator
@@ -55,7 +55,7 @@ class SampleGenerator(object):
                 except KeyError:
                     pass
         # Convert it to COO format
-        for (key, val) in Datadict.iteritems():
+        for (key, val) in Datadict.items():
             Ridx.append(key[0])
             Cidx.append(key[1])
             Val.append(val)
