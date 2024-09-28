@@ -8,6 +8,7 @@ import argparse, json
 # Example: python3 ger_predict_dis_from_txt.py data/test -p  data/de/model/K_150_Tau_0.5_C_1_iter_100.projmat.gz -m  data/de/model/K_150_Tau_0.5_C_1.model.gz  -d data/de -o data/de/test
 
 def convert_dis_to_rs3(predict, path):
+   print('====================== Convert .dis to .rs3 =================')
    for fname in os.listdir(predict):
         if not fname.endswith('.dis'):
             continue
@@ -101,9 +102,10 @@ if __name__ == "__main__":
     os.system(f'python3 ger_4_txt2parse.py {args.path}')
     os.system(f'python3 ger_5_txt2conll.py {args.path}')
     
-    # run segmente:
+    print('RUNNING RST SEGMENTER')
     os.system(f'python2 discoseg/ger_segmenter.py {args.path} -d {args.datapath}')
-    # run parser, but don't report because everything is predicted.
+    
+    print('RUNNING RST PARSER')
     os.system(f'python2 ger_rstparser.py {args.path} -p {args.fprojmat} -m {args.fmodel} -d {args.datapath} -o {outpath}')
 
     convert_dis_to_rs3(outpath, args.path)
