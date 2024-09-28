@@ -79,7 +79,7 @@ You can train your own parser using a corpus of RST trees. German parser uses _.
 3- The script _ger\_train\_parser.py_ tringgers the trining process on the base directory. You can use the following command to run the training code in the docker container:
 
 ```
-docker run -d -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env python3  ger_train.py data/base_dir
+docker run -d -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:ger python3  ger_train.py data/base_dir
 ```
 
 4- The model will be saved in the file **model/model.pickle.gz** in the base path (e.g. _model/de_)
