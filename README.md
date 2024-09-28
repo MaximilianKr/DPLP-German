@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-This repository is a fork of [DPLP Parser](https://github.com/jiyfeng/DPLP) that customizes the code for German language by adding new pieces of codes and other resources. A ready to use model is trained by the Postdam Universities RST Corpus. The pretrained model can be found in **./data/de** along with all its belongings. The source code consists of several python scripts in the root directory, prefixed by _ger_.
+This repository is a fork of [DPLP Parser](https://github.com/jiyfeng/DPLP) that customizes the code for German language by adding new pieces of codes and other resources. A ready to use model is trained by the Postdam University RST Corpus. The pretrained model can be found in **./data/de** along with all its belongings. The source code consists of several python scripts in the root directory, prefixed by _ger_.
 
 ## 2. Runtime Docker Image ##
 
