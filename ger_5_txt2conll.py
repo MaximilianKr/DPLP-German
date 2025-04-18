@@ -1,10 +1,10 @@
-import sys
 import os
 import re
+import argparse
 import traceback
 import stanza
 from stanza.utils.conll import CoNLL
-import argparse
+from stanza.pipeline.core import DownloadMethod
 
 
 def txt2conll(nlp, file_path):
@@ -68,7 +68,10 @@ def combinePPs(conll):
 if __name__ == "__main__":
     print('====================== text 2 conll =================')
 
-    nlp = stanza.Pipeline('de')
+    nlp = stanza.Pipeline(
+        lang='de',
+        download_method=DownloadMethod.REUSE_RESOURCES,
+    )
 
     parser = argparse.ArgumentParser(
         prog= os.path.basename(__file__),
