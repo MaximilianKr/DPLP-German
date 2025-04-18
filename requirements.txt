@@ -1,0 +1,11 @@
+cherrypy
+ipykernel
+ipywidgets
+lxml
+numpy
+pandas
+selenium
+six>=1.11
+stanza
+tqdm
+tabulate
