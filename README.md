@@ -53,6 +53,8 @@
 
 ### Usage
 
+Note on input: must be a single **paragraph of text (remove newlines, strip whitespace!)**
+
 From `root/DPLP-German`:
 
 - put `.txt` file(s) to parse into `data/{folder}`
