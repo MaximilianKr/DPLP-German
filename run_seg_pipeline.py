@@ -59,11 +59,15 @@ def extract_edus(input_dir, output_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("input_path")
-    parser.add_argument("-o", "--output_path", required=True)
+    parser.add_argument(
+        "input_folder", help="Folder containing original .txt files"
+    )
+    parser.add_argument(
+        "output_folder", help="Folder to write EDU .txt files to"
+    )
     args = parser.parse_args()
 
-    run_local_preprocessing(args.input_path)
-    run_docker_segmenter(args.input_path)
-    extract_edus(args.input_path, args.output_path)
-    print(f"Finished! EDU .txt files are in: {args.output_path}")
+    run_local_preprocessing(args.input_folder)
+    run_docker_segmenter(args.input_folder)
+    extract_edus(args.input_folder, args.output_folder)
+    print(f"Finished! EDU .txt files are in: {args.output_folder}")
