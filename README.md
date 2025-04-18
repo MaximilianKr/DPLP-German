@@ -53,27 +53,25 @@
 
 ### Usage
 
-Note on input: must be a single **paragraph of text (remove newlines, strip whitespace!)**
-
 From `root/DPLP-German`:
 
 - put `.txt` file(s) to parse into `data/{folder}`
-  - for example, using `data/test_input` --> adjust `{input_path}`
+  - for example, using `data/test_input` --> adjust `{input_folder}`
 - segmenter will output `.txt` with line-separated EDUs
-  - adjust `{output_path}` accordingly
+  - adjust `{output_folder}` accordingly
 
 #### Segmenter: run segmentation pipeline
 
 - run segmenter
   
   ```bash
-  python run_seg_pipeline.py {input_path} -o {output_path}
+  python run_seg_pipeline.py {input_folder} {output_folder}
   ```
 
   - for example:
 
     ```bash
-    python run_seg_pipeline.py {data/test_input} -o {data/test_output}
+    python run_seg_pipeline.py {data/test_input} {data/test_output}
     ```
 
 #### Parser: run DPLP-German
@@ -81,7 +79,7 @@ From `root/DPLP-German`:
 - run parser
 
   ```bash
-  docker run -it -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:ger python3 ger_predict_dis_from_txt.py {input_path}
+  docker run -it -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:ger python3 ger_predict_dis_from_txt.py {input_folder}
   ```
 
   - for example:
