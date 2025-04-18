@@ -16,10 +16,10 @@
 
 ## EDU Segmenter for German
 
+### Setup
+
 <details>
   <summary>Click to expand</summary>
-
-### Setup
 
 - clone repository
 
@@ -51,7 +51,12 @@
   docker pull mohamadisara20/dplp-env:ger
   ```
 
+</details>
+
 ### Usage
+
+<details>
+  <summary>Click to expand</summary>
 
 From `root/DPLP-German`:
 
@@ -79,16 +84,22 @@ From `root/DPLP-German`:
 - run parser
 
   ```bash
-  docker run -it -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:ger python3 ger_predict_dis_from_txt.py {input_folder}
+  docker run -it \
+    -v $(pwd):/home/DPLP \
+    -w /home/DPLP \
+    mohamadisara20/dplp-env:ger \
+    python3 ger_predict_dis_from_txt.py {input_folder}
   ```
 
   - for example:
   
-  ```bash
-  docker run -it -v $(pwd):/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:ger python3 ger_predict_dis_from_txt.py data/test_input
-  ```
-
-[Back to Top](#dplp-rst-parser--edu-segmenter-for-german)
+    ```bash
+    docker run -it \
+      -v $(pwd):/home/DPLP \
+      -w /home/DPLP \
+      mohamadisara20/dplp-env:ger \
+      python3 ger_predict_dis_from_txt.py data/test_input
+    ```
 
 </details>
 
