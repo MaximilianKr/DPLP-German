@@ -6,19 +6,22 @@ import stanza
 from stanza.utils.conll import CoNLL
 import argparse
 
+
 def txt2conll(nlp, file_path):
     with open(f'{file_path}.txt') as f:
         text = f.read()
         
     doc = nlp(text)
-    conll = CoNLL.doc2conll(doc)
+    conll = CoNLL.convert_dict(doc.to_dict())
 
     sent_ind = 0
     newConll = []
     for sent in conll:
         for token in sent:
-            token = str(sent_ind) + '\t' + token
-            newConll.append(token)
+            # token is list ['1', 'das', 'DET', ...]
+            token_str = '\t'.join(token)  # flatten list to tab-separated str
+            token_str = f"{sent_ind}\t{token_str}"  # prepend sentence index
+            newConll.append(token_str)
         sent_ind += 1
     
     conllCombinedPPs = combinePPs('\n'.join(newConll))
