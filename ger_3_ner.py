@@ -1,14 +1,14 @@
 import os
 import argparse
 import stanza
-from stanza.pipeline.core import DownloadMethod
+# from stanza.pipeline.core import DownloadMethod
 
 
 if __name__ == "__main__":
     print('====================== ner extraction =================')
     nlp = stanza.Pipeline(
         lang='de',
-        download_method=DownloadMethod.REUSE_RESOURCES,
+        # download_method=DownloadMethod.REUSE_RESOURCES,
         processors='tokenize,ner'
     )
    

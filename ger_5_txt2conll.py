@@ -4,7 +4,7 @@ import argparse
 import traceback
 import stanza
 from stanza.utils.conll import CoNLL
-from stanza.pipeline.core import DownloadMethod
+# from stanza.pipeline.core import DownloadMethod
 
 
 def txt2conll(nlp, file_path):
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     nlp = stanza.Pipeline(
         lang='de',
-        download_method=DownloadMethod.REUSE_RESOURCES,
+        # download_method=DownloadMethod.REUSE_RESOURCES,
     )
 
     parser = argparse.ArgumentParser(
