@@ -6,7 +6,11 @@
     - [Usage](#usage)
       - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
       - [Parser: run DPLP-German](#parser-run-dplp-german)
-  - [DPLP RST Parser for German](#dplp-rst-parser-for-german)
+  - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
+    - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
+    - [Step 2: Train the Model](#step-2-train-the-model)
+    - [Step 3: Predict with Your New Model](#step-3-predict-with-your-new-model)
+  - [DPLP RST Parser for German (original README.md)](#dplp-rst-parser-for-german-original-readmemd)
     - [1. Introduction](#1-introduction)
     - [2. Runtime Docker Image](#2-runtime-docker-image)
     - [3. RST Parsing from text files](#3-rst-parsing-from-text-files)
@@ -103,7 +107,88 @@ From `root/DPLP-German`:
 
 </details>
 
-## DPLP RST Parser for German
+## Retrain DPLP-German with a Custom Corpus
+
+This section describes the simplified, end-to-end workflow for training a new model on a custom corpus and using it for prediction. This process is managed by two main scripts: `train_custom_model.sh` and `predict_with_custom_model.sh`.
+
+<details>
+  <summary>Click to expand</summary>
+
+### Step 1: Prepare and Split Your Corpus
+
+Before training, your corpus of `.rs3` files must be split into `training`, `dev`, and `test` sets.
+
+1. Ensure all your annotated `.rs3` files are in a single source directory.
+2. Run the splitting script:
+
+    ```bash
+    python3 scripts/split_corpus.py <source_directory> <destination_directory> --split <train_count> <dev_count> <test_count>
+    ```
+
+    - `source_directory`: The directory containing your full set of `.rs3` files.
+    - `destination_directory`: The base path where the `training/`, `dev/`, and `test/` subdirectories will be created (e.g., `data/my_corpus`).
+    - `--split`: The number of files for the training, dev, and test sets.
+    - `--seed` (optional): A number to seed the random shuffle for reproducibility (defaults to `42`).
+
+    **Example:**
+    To split **80/10/10** train/dev/test 176 files from `data/pcc/rs3` into a training set of 141, a dev set of 18, and a test set of 17 inside `data/pcc`, run:
+
+    ```bash
+    python3 scripts/split_corpus.py data/pcc_full/rs3 data/pcc --split 141 18 17
+    ```
+
+3. **Relation Mapping**: This step is now handled automatically by the training script. It will analyze your corpus and generate a temporary, corpus-specific relation map. No manual editing of JSON files is required.
+
+### Step 2: Train the Model
+
+Once your data is split, you can train the model using the `train_custom_model.sh` script.
+
+1. Configure the script: Open `train_custom_model.sh` and edit the `BASE_DIR` variable to match the `<destination_directory>` you used in the splitting step.
+
+    ```bash
+    # Example configuration
+    BASE_DIR="data/pcc"
+    ```
+
+2. Run the training:
+
+    ```bash
+    bash train_custom_model.sh
+    ```
+
+    The script now performs two actions:
+    - First, it automatically analyzes your corpus and generates a custom relation mapping file.
+    - Then, it runs the entire training pipeline inside the Docker container using this custom map.
+
+    A new model will be saved to `<BASE_DIR>/model/`, and evaluation results will be in `<BASE_DIR>/result.txt`.
+
+### Step 3: Predict with Your New Model
+
+After training, you can use your custom model to parse new `.txt` files.
+
+1. Prepare input texts: Place one or more `.txt` files into a single directory (e.g., `data/texts_to_parse`).
+  
+2. Configure the script: Open `predict_with_custom_model.sh` and edit two variables:
+    - `MODEL_BASE_DIR`: This should be the same path as `BASE_DIR` from the training script (e.g., `"data/pcc"`).
+    - `INPUT_DIR`: The directory containing your new `.txt` files.
+
+    ```bash
+    # Example configuration
+    MODEL_BASE_DIR="data/pcc"
+    INPUT_DIR="data/texts_to_parse"
+    ```
+
+3. Run prediction:
+
+    ```bash
+    bash predict_with_custom_model.sh
+    ```
+
+    The script will generate `.dis` and `.rs3` output files in the `INPUT_DIR`.
+
+</details>
+
+## DPLP RST Parser for German (original README.md)
 
 <details>
   <summary>Click to expand</summary>
