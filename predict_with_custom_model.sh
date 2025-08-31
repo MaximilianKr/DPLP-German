@@ -49,16 +49,25 @@ fi
 
 mkdir -p "$OUTPUT_DIR"
 
+# --- Local Preprocessing ---
+# The following scripts use Stanza and will leverage the local GPU if available.
+echo "Running Stanza preprocessing on the host machine..."
+python3 ger_3_ner.py "$INPUT_DIR"
+python3 ger_4_txt2parse.py "$INPUT_DIR"
+python3 ger_5_txt2conll.py "$INPUT_DIR"
+
 # --- Docker Execution ---
 # We mount the entire project directory into the container at /home/DPLP.
 # The container's working directory is set to /home/DPLP, so all paths are relative to the project root.
-echo "Running RST parser inside Docker container..."
+echo "Running segmentation, parsing, and conversion inside Docker container..."
 docker run --rm -v "$(pwd)":/home/DPLP -w /home/DPLP mohamadisara20/dplp-env:latest \
   python3 ger_predict_dis_from_txt.py "$INPUT_DIR" \
     -m "$MODEL_FILE" \
     -p "$PROJMAT_FILE" \
     -d "$DATAPATH" \
     -o "$OUTPUT_DIR" \
-    -rm "$RELATION_MAP"
+    -rm "$RELATION_MAP" \
+    --no-pre
+
 
 echo "Processing complete. Output files are in $OUTPUT_DIR"
