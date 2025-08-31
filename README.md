@@ -4,7 +4,7 @@
   - [Setup](#setup)
   - [EDU Segmenter for German](#edu-segmenter-for-german)
     - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
-    - [Parser: run DPLP-German](#parser-run-dplp-german)
+      - [Parser: run DPLP-German](#parser-run-dplp-german)
   - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
     - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
     - [Step 2: Train the Model](#step-2-train-the-model)
@@ -66,7 +66,7 @@ From `root/DPLP-German`:
 - segmenter will output `.txt` with line-separated EDUs
   - adjust `{output_folder}` accordingly
 
-#### Segmenter: run segmentation pipeline
+### Segmenter: run segmentation pipeline
 
 - run segmenter
   
@@ -106,10 +106,10 @@ From `root/DPLP-German`:
 
 ## Retrain DPLP-German with a Custom Corpus
 
+### Step 1: Prepare and Split Your Corpus
+
 <details>
   <summary>Click to expand</summary>
-
-### Step 1: Prepare and Split Your Corpus
 
 Before training, your corpus of `.rs3` files must be split into `training`, `dev`, and `test` sets.
 
@@ -127,58 +127,63 @@ Before training, your corpus of `.rs3` files must be split into `training`, `dev
     - `--seed` (optional): A number to seed the random shuffle for reproducibility (defaults to `42`).
 
     **Example:**
-    To split 176 files from `data/pcc_full/rs3` into a training set of 141, a dev set of 18, and a test set of 17 inside `data/pcc`, run:
+    To split 176 files from `data/pcc/rs3` into a training set of 141, a dev set of 18, and a test set of 17 inside `data/pcc`, run:
 
     ```bash
-    python3 scripts/split_corpus.py data/pcc_full/rs3 data/pcc --split 141 18 17
+    python3 scripts/split_corpus.py data/pcc/rs3 data/pcc --split 141 18 17
     ```
+
+</details>
 
 ### Step 2: Train the Model
 
-Once your data is split, you can train the model using the `train_custom_model.sh` script.
+<details>
+  <summary>Click to expand</summary>
 
-1. **Configure the script**: Open `train_custom_model.sh` and edit the `BASE_DIR` variable to match the `<destination_directory>` you used in the splitting step.
+Once your data is split, you can train the model using the `train_custom_model.sh` script. Simply provide the path to your corpus directory as an argument.
 
-    ```bash
-    # Example configuration in train_custom_model.sh
-    BASE_DIR="data/pcc"
-    ```
-
-2. **Run the training**:
+- Run the training:
 
     ```bash
-    bash train_custom_model.sh
+    bash train_custom_model.sh <corpus_base_path>
     ```
 
-    The script performs two actions:
-    - It automatically analyzes your corpus and generates a **custom relation mapping** file (it should contain all relations present in your corpus - train/test/dev).
-    - It runs the entire training pipeline inside the Docker container using this custom map.
+  - `<corpus_base_path>`: The destination directory you used in the splitting step (e.g., `data/pcc`).
 
-    A new model will be saved to `<BASE_DIR>/model/`, and evaluation results will be in `<BASE_DIR>/result.txt`.
+    Example:
+
+    ```bash
+    bash train_custom_model.sh data/pcc
+    ```
+
+    The script will automatically generate a custom relation map and run the entire training pipeline. The model files will be saved to `<corpus_base_path>` with evaluation results in `<corpus_base_path>/result.txt`.
+
+</details>
 
 ### Step 3: Predict with Your New Model
 
+<details>
+  <summary>Click to expand</summary>
+
 After training, you can use your custom model to parse new `.txt` files.
 
-1. **Prepare input texts**: Place one or more `.txt` files into an input directory.
-
-2. **Run prediction:**
+- Run prediction:
 
     ```bash
-    bash predict_with_custom_model.sh <input_directory> <output_directory>
+    bash predict_with_custom_model.sh <corpus_base_path> <input_directory> <output_directory>
     ```
 
-    - `<input_directory>`: The directory containing your new `.txt` files.
-    - `<output_directory>`: The directory where the output `.dis` and `.rs3` files will be saved.
+  - `<corpus_base_path>`: The path to the corpus directory containing your trained model.
+  - `<input_directory>`: The directory containing your new `.txt` files.
+  - `<output_directory>`: The directory where the output `.dis` and `.rs3` files will be saved.
 
-    **Example:**
-    To parse files from `data/pcc/test_input` and save the results to `data/pcc/test_output`, run:
+    Example:
+
+    To parse files from `data/pcc/test_input` using the model in `data/pcc` and save the parsed results to `data/pcc/test_output`, run:
 
     ```bash
-    bash predict_with_custom_model.sh data/pcc/test_input data/pcc/test_output
+    bash predict_with_custom_model.sh data/pcc data/pcc/test_input data/pcc/test_output
     ```
-
-    The script is pre-configured to find the custom model and relation map inside the `data/pcc` directory. If your corpus directory has a different name, you will need to edit the `CORPUS_NAME` variable inside the `predict_with_custom_model.sh` script.
 
 </details>
 
@@ -286,4 +291,4 @@ Please read the following paper for more technical details
 
 </details>
 
-[Back to Top](#dplp-rst-parser--edu-segmenter-for-german)
+[Back to Top](#dplp-german-rst-parser--edu-segmenter)
