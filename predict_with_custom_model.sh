@@ -52,9 +52,10 @@ mkdir -p "$OUTPUT_DIR"
 # --- Local Preprocessing ---
 # The following scripts use Stanza and will leverage the local GPU if available.
 echo "Running Stanza preprocessing on the host machine..."
-python3 ger_3_ner.py "$INPUT_DIR"
+python3 run_stanza_preprocessing.py "$INPUT_DIR"
+
+echo "Running BerkeleyParser on the host machine..."
 python3 ger_4_txt2parse.py "$INPUT_DIR"
-python3 ger_5_txt2conll.py "$INPUT_DIR"
 
 # --- Docker Execution ---
 # We mount the entire project directory into the container at /home/DPLP.
