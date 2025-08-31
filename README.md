@@ -1,16 +1,15 @@
-# DPLP RST Parser & EDU Segmenter for German
+# DPLP-German RST Parser & EDU Segmenter
 
-- [DPLP RST Parser \& EDU Segmenter for German](#dplp-rst-parser--edu-segmenter-for-german)
+- [DPLP-German RST Parser \& EDU Segmenter](#dplp-german-rst-parser--edu-segmenter)
+  - [Setup](#setup)
   - [EDU Segmenter for German](#edu-segmenter-for-german)
-    - [Setup](#setup)
-    - [Usage](#usage)
       - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
       - [Parser: run DPLP-German](#parser-run-dplp-german)
   - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
     - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
     - [Step 2: Train the Model](#step-2-train-the-model)
     - [Step 3: Predict with Your New Model](#step-3-predict-with-your-new-model)
-  - [DPLP RST Parser for German (original README.md)](#dplp-rst-parser-for-german-original-readmemd)
+  - [DPLP-German (original README.md)](#dplp-german-original-readmemd)
     - [1. Introduction](#1-introduction)
     - [2. Runtime Docker Image](#2-runtime-docker-image)
     - [3. RST Parsing from text files](#3-rst-parsing-from-text-files)
@@ -18,9 +17,7 @@
     - [5. Training Your Own RST Parser](#5-training-your-own-rst-parser)
     - [Reference](#reference)
 
-## EDU Segmenter for German
-
-### Setup
+## Setup
 
 <details>
   <summary>Click to expand</summary>
@@ -57,7 +54,7 @@
 
 </details>
 
-### Usage
+## EDU Segmenter for German
 
 <details>
   <summary>Click to expand</summary>
@@ -80,7 +77,7 @@ From `root/DPLP-German`:
   - for example:
 
     ```bash
-    python run_seg_pipeline.py {data/test_input} {data/test_output}
+    python run_seg_pipeline.py data/test_input data/test_output
     ```
 
 #### Parser: run DPLP-German
@@ -187,7 +184,7 @@ After training, you can use your custom model to parse new `.txt` files.
 
 </details>
 
-## DPLP RST Parser for German (original README.md)
+## DPLP-German (original README.md)
 
 <details>
   <summary>Click to expand</summary>
