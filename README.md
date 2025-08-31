@@ -6,7 +6,11 @@
     - [Usage](#usage)
       - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
       - [Parser: run DPLP-German](#parser-run-dplp-german)
-  - [DPLP RST Parser for German](#dplp-rst-parser-for-german)
+  - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
+    - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
+    - [Step 2: Train the Model](#step-2-train-the-model)
+    - [Step 3: Predict with Your New Model](#step-3-predict-with-your-new-model)
+  - [DPLP RST Parser for German (original README.md)](#dplp-rst-parser-for-german-original-readmemd)
     - [1. Introduction](#1-introduction)
     - [2. Runtime Docker Image](#2-runtime-docker-image)
     - [3. RST Parsing from text files](#3-rst-parsing-from-text-files)
@@ -103,7 +107,87 @@ From `root/DPLP-German`:
 
 </details>
 
-## DPLP RST Parser for German
+## Retrain DPLP-German with a Custom Corpus
+
+This section describes the simplified, end-to-end workflow for training a new model on a custom corpus and using it for prediction. This process is managed by two newly added main scripts: `train_custom_model.sh` and `predict_with_custom_model.sh`.
+
+<details>
+  <summary>Click to expand</summary>
+
+### Step 1: Prepare and Split Your Corpus
+
+Before training, your corpus of `.rs3` files must be split into `training`, `dev`, and `test` sets.
+
+1. **Ensure your annotated `.rs3` files are in a single source directory**.
+
+2. **Run the splitting script**:
+
+    ```bash
+    python3 scripts/split_corpus.py <source_directory> <destination_directory> --split <train_count> <dev_count> <test_count>
+    ```
+
+    - `<source_directory>`: The directory containing your full set of `.rs3` files.
+    - `<destination_directory>`: The base path where `training/`, `dev/`, and `test/` subdirectories will be created (e.g., `data/my_corpus`).
+    - `--split`: The number of files for the training, dev, and test sets.
+    - `--seed` (optional): A number to seed the random shuffle for reproducibility (defaults to `42`).
+
+    **Example:**
+    To split 176 files from `data/pcc_full/rs3` into a training set of 141, a dev set of 18, and a test set of 17 inside `data/pcc`, run:
+
+    ```bash
+    python3 scripts/split_corpus.py data/pcc_full/rs3 data/pcc --split 141 18 17
+    ```
+
+### Step 2: Train the Model
+
+Once your data is split, you can train the model using the `train_custom_model.sh` script.
+
+1. **Configure the script**: Open `train_custom_model.sh` and edit the `BASE_DIR` variable to match the `<destination_directory>` you used in the splitting step.
+
+    ```bash
+    # Example configuration in train_custom_model.sh
+    BASE_DIR="data/pcc"
+    ```
+
+2. **Run the training**:
+
+    ```bash
+    bash train_custom_model.sh
+    ```
+
+    The script performs two actions:
+    - It automatically analyzes your corpus and generates a **custom relation mapping** file (it should contain all relations present in your corpus - train/test/dev).
+    - It runs the entire training pipeline inside the Docker container using this custom map.
+
+    A new model will be saved to `<BASE_DIR>/model/`, and evaluation results will be in `<BASE_DIR>/result.txt`.
+
+### Step 3: Predict with Your New Model
+
+After training, you can use your custom model to parse new `.txt` files.
+
+1. **Prepare input texts**: Place one or more `.txt` files into an input directory.
+
+2. **Run prediction:**
+
+    ```bash
+    bash predict_with_custom_model.sh <input_directory> <output_directory>
+    ```
+
+    - `<input_directory>`: The directory containing your new `.txt` files.
+    - `<output_directory>`: The directory where the output `.dis` and `.rs3` files will be saved.
+
+    **Example:**
+    To parse files from `data/pcc/test_input` and save the results to `data/pcc/test_output`, run:
+
+    ```bash
+    bash predict_with_custom_model.sh data/pcc/test_input data/pcc/test_output
+    ```
+
+    The script is pre-configured to find the custom model and relation map inside the `data/pcc` directory. If your corpus directory has a different name, you will need to edit the `CORPUS_NAME` variable inside the `predict_with_custom_model.sh` script.
+
+</details>
+
+## DPLP RST Parser for German (original README.md)
 
 <details>
   <summary>Click to expand</summary>

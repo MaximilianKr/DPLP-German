@@ -42,11 +42,12 @@ def convert_dis_to_rs3(predict, path):
         for i in range(len(leaves)):
             leaves[i].text = edus[i]
         
-        # fix_rs3_relations(rst_tree, etree)
+        if args.relation_map:
+            fix_rs3_relations(rst_tree, etree, args.relation_map)
         rst_tree.write(f'{predict}/{fname}.rs3', encoding='utf8' )
     
-def fix_rs3_relations(rs3_tree, etree):
-    with open('parsing_eval_metrics/rel_mapping.json') as f:
+def fix_rs3_relations(rs3_tree, etree, rel_map_path):
+    with open(rel_map_path) as f:
         rel_map = json.load(f)
 
     reltypes = set()
@@ -85,6 +86,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--fmodel", type=str, default='data/de/model/model.pickle.gz', help="The trained model file.")
     parser.add_argument("-d", "--datapath", type=str, default='data/de', help="Path to the training data files (vocabs, ...)")
     parser.add_argument("-o", "--outpath", type=str, help="The path of the output dis and rs3 files.")
+    parser.add_argument("-rm", "--relation_map", type=str, help="The path to the relation map json file.")
     # TODO: add argument for segmenter model
     args = parser.parse_args()
 
