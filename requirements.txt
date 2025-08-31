@@ -7,5 +7,6 @@ pandas
 selenium
 six>=1.11
 stanza
+torch
 tqdm
 tabulate
