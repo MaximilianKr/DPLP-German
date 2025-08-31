@@ -3,8 +3,8 @@
 - [DPLP-German RST Parser \& EDU Segmenter](#dplp-german-rst-parser--edu-segmenter)
   - [Setup](#setup)
   - [EDU Segmenter for German](#edu-segmenter-for-german)
-      - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
-      - [Parser: run DPLP-German](#parser-run-dplp-german)
+    - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
+    - [Parser: run DPLP-German](#parser-run-dplp-german)
   - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
     - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
     - [Step 2: Train the Model](#step-2-train-the-model)
@@ -105,8 +105,6 @@ From `root/DPLP-German`:
 </details>
 
 ## Retrain DPLP-German with a Custom Corpus
-
-This section describes the simplified, end-to-end workflow for training a new model on a custom corpus and using it for prediction. This process is managed by two newly added main scripts: `train_custom_model.sh` and `predict_with_custom_model.sh`.
 
 <details>
   <summary>Click to expand</summary>
