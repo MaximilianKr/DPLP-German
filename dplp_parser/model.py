@@ -38,7 +38,7 @@ class ParsingModel(object):
         self.labelmap = idxlabelmap
         if clf is None:
             self.clf = LinearSVC(C=1.0, penalty='l1',
-                loss='squared_hinge', dual=False, tol=1e-7)
+                loss='squared_hinge', dual=False, tol=1e-7, max_iter=10000)
         else:
             self.clf = clf
         self.withdp = withdp
