@@ -17,9 +17,15 @@
 #    bash train_custom_model.sh
 
 # --- Configuration ---
-# Change this to the relative path of the data directory from the project root.
-BASE_DIR="data/pcc"
-REL_MAP_FILE="${BASE_DIR}/pcc_rel_mapping.json"
+# The corpus base path is now the first argument to the script.
+if [ -z "$1" ]; then
+  echo "Error: No corpus path provided."
+  echo "Usage: bash train_custom_model.sh <corpus_base_path>"
+  exit 1
+fi
+BASE_DIR="$1"
+# Generate a unique relation map file name in the corpus directory
+REL_MAP_FILE="${BASE_DIR}/$(basename ${BASE_DIR})_rel_mapping.json"
 
 # --- Script ---
 

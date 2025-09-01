@@ -87,6 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--datapath", type=str, default='data/de', help="Path to the training data files (vocabs, ...)")
     parser.add_argument("-o", "--outpath", type=str, help="The path of the output dis and rs3 files.")
     parser.add_argument("-rm", "--relation_map", type=str, help="The path to the relation map json file.")
+    parser.add_argument("--no-pre", action="store_true", help="Skip the preprocessing steps (ner, txt2parse, txt2conll).")
     # TODO: add argument for segmenter model
     args = parser.parse_args()
 
@@ -99,10 +100,11 @@ if __name__ == "__main__":
     if not os.path.exists(outpath):
         os.mkdir(outpath)
         
-    # os.system(f'python3 ger_2_txt.py {args.path}')
-    os.system(f'python3 ger_3_ner.py {args.path}')
-    os.system(f'python3 ger_4_txt2parse.py {args.path}')
-    os.system(f'python3 ger_5_txt2conll.py {args.path}')
+    if not args.no_pre:
+        # os.system(f'python3 ger_2_txt.py {args.path}')
+        os.system(f'python3 ger_3_ner.py {args.path}')
+        os.system(f'python3 ger_4_txt2parse.py {args.path}')
+        os.system(f'python3 ger_5_txt2conll.py {args.path}')
     
     print('RUNNING RST SEGMENTER')
     os.system(f'python2 discoseg/ger_segmenter.py {args.path} -d {args.datapath}')

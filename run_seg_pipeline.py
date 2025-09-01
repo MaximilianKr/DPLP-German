@@ -65,9 +65,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "output_folder", help="Folder to write EDU .txt files to"
     )
+    parser.add_argument(
+        "--corpus_base_path", help="Path to the corpus with the segmentation model", default="data/de"
+    )
     args = parser.parse_args()
 
     run_local_preprocessing(args.input_folder)
-    run_docker_segmenter(args.input_folder)
+    run_docker_segmenter(args.input_folder, args.corpus_base_path)
     extract_edus(args.input_folder, args.output_folder)
     print(f"Finished! EDU .txt files are in: {args.output_folder}")
