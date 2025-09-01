@@ -4,7 +4,8 @@
   - [Setup](#setup)
   - [EDU Segmenter for German](#edu-segmenter-for-german)
     - [Segmenter: run segmentation pipeline](#segmenter-run-segmentation-pipeline)
-      - [Parser: run DPLP-German](#parser-run-dplp-german)
+      - [Use custom-trained Model](#use-custom-trained-model)
+    - [Parser: run DPLP-German](#parser-run-dplp-german)
   - [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
     - [Step 1: Prepare and Split Your Corpus](#step-1-prepare-and-split-your-corpus)
     - [Step 2: Train the Model](#step-2-train-the-model)
@@ -68,7 +69,7 @@ From `root/DPLP-German`:
 
 ### Segmenter: run segmentation pipeline
 
-- run segmenter
+- run segmenter with the `default` model
   
   ```bash
   python run_seg_pipeline.py {input_folder} {output_folder}
@@ -80,9 +81,24 @@ From `root/DPLP-German`:
     python run_seg_pipeline.py data/test_input data/test_output
     ```
 
-#### Parser: run DPLP-German
+#### Use custom-trained Model
 
-- run parser
+- you can use a custom-trained model by providing the path via the `--corpus_base_path` argument
+- for details on how to create a custom model, see the section [Retrain DPLP-German with a Custom Corpus](#retrain-dplp-german-with-a-custom-corpus)
+
+  ```bash
+  python run_seg_pipeline.py {input_folder} {output_folder} --corpus_base_path <path_to_your_corpus>
+  ```
+
+  - for example:
+
+    ```bash
+    python run_seg_pipeline.py data/pcc/test_input data/pcc/test_output --corpus_base_path data/pcc
+    ```
+
+### Parser: run DPLP-German
+
+- run parser with the `default` model
 
   ```bash
   docker run -it \
