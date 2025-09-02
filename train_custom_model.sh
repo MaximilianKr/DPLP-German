@@ -48,7 +48,7 @@ echo "Using base directory: $BASE_DIR"
 echo "Using relation map: $REL_MAP_FILE"
 
 # Run the training command inside the Docker container
-docker run --rm -it \
+docker run --rm \
   -v "$(pwd)":/home/DPLP \
   -w /home/DPLP \
   mohamadisara20/dplp-env:ger \
