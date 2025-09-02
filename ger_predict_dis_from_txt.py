@@ -101,10 +101,8 @@ if __name__ == "__main__":
         os.mkdir(outpath)
         
     if not args.no_pre:
-        # os.system(f'python3 ger_2_txt.py {args.path}')
-        os.system(f'python3 ger_3_ner.py {args.path}')
-        os.system(f'python3 ger_4_txt2parse.py {args.path}')
-        os.system(f'python3 ger_5_txt2conll.py {args.path}')
+        # The unified script handles NER, parsing, and CoNLL generation
+        os.system(f'python3 run_stanza_preprocessing.py {args.path}')
     
     print('RUNNING RST SEGMENTER')
     os.system(f'python2 discoseg/ger_segmenter.py {args.path} -d {args.datapath}')

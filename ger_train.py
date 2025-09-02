@@ -14,7 +14,6 @@ if __name__ == "__main__":
     parser.add_argument('-op', "--only_prepare", type=bool, default=False, help='Only prepaer data; exit before training parser or segmenter.')
     parser.add_argument("-n", "--num_matrix", type=int, default=0, help="Number of proj-matrices to check (0: unlimited)")
     parser.add_argument("-m", "--matrix_type", type=str, default="identity", help="Projection matrix type: identity (default), standard")
-    parser.add_argument('-ss', "--skip_syntax", type=bool, default=False, help='Skips the syntax parsing step in data preparation (for speed)')
     parser.add_argument('-rm', "--relation_map", type=str, default='', help='Json file with relation mapping; used to reduce relations in .dis files.')
 
     args = parser.parse_args()
@@ -25,10 +24,8 @@ if __name__ == "__main__":
             os.system(f'python3 ger_0_preprocess_rs3.py {path}')
             os.system(f'python2 ger_1_rst2dis.py {path}')
             os.system(f'python3 ger_2_txt.py {path}')
-            os.system(f'python3 ger_3_ner.py {path}')
-            if not args.skip_syntax:
-                os.system(f'python3 ger_4_txt2parse.py {path}')
-            os.system(f'python3 ger_5_txt2conll.py {path}')
+            # The unified script handles NER, parsing, and CoNLL generation
+            os.system(f'python3 run_stanza_preprocessing.py {path}')
             os.system(f'python3 ger_6_conll_rst2merge.py {path}')
     
     if args.only_prepare:

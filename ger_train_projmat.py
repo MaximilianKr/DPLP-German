@@ -12,7 +12,6 @@ if __name__ == "__main__":
     parser.add_argument('basepath')           # positional argument
     parser.add_argument("-s", "--skip_prepare", type=bool, default=False, help="Go straight to training. No preparation neede (it is already done)")
     parser.add_argument("-n", "--num_matrix", type=int, default=0, help="Number of proj-matrices to check (0: unlimited)")
-    parser.add_argument('-sp', "--skip_parser", type=bool, default=False, help='Skips the syntax parsing step in data preparation (for speed)')
     args = parser.parse_args()
 
     if not args.skip_prepare:
@@ -21,10 +20,8 @@ if __name__ == "__main__":
             os.system(f'python2 ger_1_rst2dis.py {path}')
             os.system(f'python3 ger_1_reduce_relations.py {path}')
             os.system(f'python3 ger_2_txt.py {path}')
-            os.system(f'python3 ger_3_ner.py {path}')
-            if not args.skip_parser:
-                os.system(f'python3 ger_4_txt2parse.py {path}')
-            os.system(f'python3 ger_5_txt2conll.py {path}')
+            # The unified script handles NER, parsing, and CoNLL generation
+            os.system(f'python3 run_stanza_preprocessing.py {path}')
             os.system(f'python3 ger_6_conll_rst2merge.py {path}')
 
     os.system(f'python2 discoseg/ger_7_seg_train.py {args.basepath}')

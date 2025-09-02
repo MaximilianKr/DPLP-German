@@ -20,7 +20,19 @@ CORPUS_NAME=$(basename "$CORPUS_BASE_PATH")
 MODEL_DIR="$CORPUS_BASE_PATH/model"
 MODEL_FILE="$MODEL_DIR/model.pickle.gz"
 PROJMAT_FILE="$MODEL_DIR/projmat.pickle.gz"
-RELATION_MAP="$CORPUS_BASE_PATH/${CORPUS_NAME}_rel_mapping.json"
+
+# Handle different relation map naming conventions (custom vs. default)
+CUSTOM_REL_MAP="$CORPUS_BASE_PATH/${CORPUS_NAME}_rel_mapping.json"
+DEFAULT_REL_MAP="$CORPUS_BASE_PATH/rel_mapping.json"
+if [ -f "$CUSTOM_REL_MAP" ]; then
+  RELATION_MAP="$CUSTOM_REL_MAP"
+elif [ -f "$DEFAULT_REL_MAP" ]; then
+  RELATION_MAP="$DEFAULT_REL_MAP"
+else
+  echo "Warning: No relation map file found. Proceeding without one."
+  RELATION_MAP=""
+fi
+
 DATAPATH="$CORPUS_BASE_PATH" # Path for vocabs etc.
 
 # --- Pre-flight Checks ---
@@ -48,12 +60,9 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 # --- Local Preprocessing ---
-# The following scripts use Stanza and will leverage the local GPU if available.
-echo "Running Stanza preprocessing on the host machine..."
+# The following script uses Stanza and will leverage the local GPU if available.
+echo "Running unified Stanza preprocessing on the host machine..."
 python3 run_stanza_preprocessing.py "$INPUT_DIR"
-
-echo "Running BerkeleyParser on the host machine..."
-python3 ger_4_txt2parse.py "$INPUT_DIR"
 
 # --- Docker Execution ---
 # We mount the entire project directory into the container at /home/DPLP.

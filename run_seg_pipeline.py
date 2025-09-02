@@ -3,13 +3,11 @@ import argparse
 import subprocess
 
 
-def run_optimized_preprocessing(input_path):
-    # Run the consolidated Stanza script for NER and CoNLL
+def run_unified_stanza_preprocessing(input_path):
+    # Run the consolidated Stanza script for NER, CoNLL, and Parsing
     subprocess.run([
         "python3", "run_stanza_preprocessing.py", input_path
     ])
-    # Run the BerkeleyParser script separately
-    os.system(f"python3 ger_4_txt2parse.py {input_path}")
 
 
 def run_docker_segmenter(input_path, datapath="data/de"):
@@ -73,7 +71,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    run_optimized_preprocessing(args.input_folder)
+    run_unified_stanza_preprocessing(args.input_folder)
     run_docker_segmenter(args.input_folder, args.corpus_base_path)
     extract_edus(args.input_folder, args.output_folder)
     print(f"Finished! EDU .txt files are in: {args.output_folder}")
